@@ -9,11 +9,11 @@ import Spinner from "../../components/UI/Spinner/Spinner";
 import styles from "./Auth.module.css";
 import * as actions from "../../store/actions";
 
+import { updateObject, checkValidity } from "../../shared/utility";
+
 class Auth extends React.Component {
   componentDidMount() {
     if (!this.props.buildingBurger && this.props.authRedirectPath !== "/") {
-      console.log(this.props.buildingBurger);
-      console.log(this.props.authRedirectPath);
       this.props.onSetAuthRedirectPath();
     }
   }
@@ -89,18 +89,16 @@ class Auth extends React.Component {
   };
 
   inputChangeHandler = (event, controlName) => {
-    const updatedControls = {
-      ...this.state.controls,
-      [controlName]: {
-        ...this.state.controls[controlName],
+    const updatedControls = updateObject(this.state.controls, {
+      [controlName]: updateObject(this.state.controls[controlName], {
         value: event.target.value,
-        valid: this.checkValidity(
+        valid: checkValidity(
           event.target.value,
           this.state.controls[controlName].validation
         ),
         touched: true,
-      },
-    };
+      }),
+    });
 
     this.setState({ controls: updatedControls });
   };

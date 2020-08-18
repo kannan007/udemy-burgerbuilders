@@ -34,7 +34,6 @@ export const initIngredients = () => {
       "https://udemy-burger-builder-2d725.firebaseio.com/ingredients.json"
     )
       .then((res) => {
-        console.log(res.data);
         dispatch(setIngredients(res.data));
       })
       .catch((err) => {
