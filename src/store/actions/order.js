@@ -22,7 +22,7 @@ export const purchaseBurgerStart = () => {
   };
 };
 
-export const purchaseBurger = (orderData, token) => {
+/* export const purchaseBurger = (orderData, token) => {
   return (dispatch) => {
     dispatch(purchaseBurgerStart());
     Axios.post(`./order.json?auth=${token}`, orderData)
@@ -33,6 +33,14 @@ export const purchaseBurger = (orderData, token) => {
         console.error(err);
         dispatch(purchaseBurgerFail(err));
       });
+  };
+}; */
+
+export const purchaseBurger = (orderData, token) => {
+  return {
+    type: actionTypes.PURCHASE_BURGER,
+    orderData,
+    token,
   };
 };
 
@@ -62,22 +70,30 @@ export const fetchOrdersStart = () => {
   };
 };
 
+// export const fetchOrders = (token, userId) => {
+//   return (dispatch) => {
+//     dispatch(fetchOrdersStart());
+//     const queryParams = `?auth=${token}&orderBy="userId"&equalTo="${userId}"`;
+//     // const queryParams =
+//     //   "?auth=" + token + '&orderBy="userId"&equalTo="' + userId + '"';
+//     Axios.get(`/order.json${queryParams}`)
+//       .then((res) => {
+//         const fetchedOrders = [];
+//         for (let key in res.data) {
+//           fetchedOrders.push({ ...res.data[key], id: key });
+//         }
+//         dispatch(fetchOrdersSuccess(fetchedOrders));
+//       })
+//       .catch((err) => {
+//         dispatch(fetchOrdersFail(err));
+//       });
+//   };
+// };
+
 export const fetchOrders = (token, userId) => {
-  return (dispatch) => {
-    dispatch(fetchOrdersStart());
-    const queryParams = `?auth=${token}&orderBy="userId"&equalTo="${userId}"`;
-    // const queryParams =
-    //   "?auth=" + token + '&orderBy="userId"&equalTo="' + userId + '"';
-    Axios.get(`/order.json${queryParams}`)
-      .then((res) => {
-        const fetchedOrders = [];
-        for (let key in res.data) {
-          fetchedOrders.push({ ...res.data[key], id: key });
-        }
-        dispatch(fetchOrdersSuccess(fetchedOrders));
-      })
-      .catch((err) => {
-        dispatch(fetchOrdersFail(err));
-      });
+  return {
+    type: actionTypes.FETCH_ORDERS,
+    token,
+    userId,
   };
 };
