@@ -1,5 +1,5 @@
 import * as actionTypes from "./actionTypes";
-import Axios from "../../axios-orders";
+// import Axios from "../../axios-orders";
 
 export const purchaseBurgerSuccess = (id, orderData) => {
   return {
